@@ -147,7 +147,7 @@ static void show_differences(struct cache_entry *ce, struct stat *cur,
      * cache entry and the contents of the corresponding working file.
      * Store the command string in `cmd`. 
      */
-    snprintf(cmd, sizeof(cmd), "diff --strip-trailing-cr -u - %s", ce->name);
+    snprintf(cmd, sizeof(cmd), "diff --strip-trailing-cr -u --color - %s", ce->name);
 
     /*
      * Create a pipe to the diff command and return a pointer to the
