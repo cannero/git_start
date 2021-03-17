@@ -20,12 +20,15 @@ prefix  = $(HOME)
 bindir  = $(prefix)/bin
 
 CC      = cc
+#fcommon for variables without external declaration in header
+#CFLAGS  = -fcommon -g -Wall -O3
 CFLAGS  = -g -Wall -O3
 LDLIBS  = -lcrypto -lz
 RCOBJ   = read-cache.o
 OBJS    = init-db.o update-cache.o write-tree.o commit-tree.o read-tree.o \
               cat-file.o show-diff.o 
 PROGS  := $(subst .o,,$(OBJS))
+PROGS += zpipe
 
 ifeq ($(OS),Windows_NT)
     CFLAGS += -D BGIT_WINDOWS
@@ -72,6 +75,9 @@ cat-file     : cat-file.o $(RCOBJ)
 show-diff    : show-diff.o $(RCOBJ)
 	$(CC) $(CFLAGS) -o $@ $@.o $(RCOBJ) $(LDLIBS)
 
+zpipe        : zpipe.o
+	$(CC) $(CFLAGS) -o $@ $@.o $(LDLIBS)
+
 $(OBJS) : cache.h
 
 
@@ -88,5 +94,6 @@ backup  : clean
 test    :
 	@echo "SYSTEM = $(SYSTEM)"
 	@echo "CC = $(CC)"
-	@echo "PROGS = $(PROGS)" 
+	@echo "PROGS = $(PROGS)"
+	@echo "RCOBJ = $(RCOBJ)"
 
