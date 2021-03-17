@@ -7,3 +7,4 @@ read-tree
 show-diff
 update-cache
 write-tree
+*.exe
