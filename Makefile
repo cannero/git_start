@@ -28,7 +28,7 @@ RCOBJ   = read-cache.o
 OBJS    = init-db.o update-cache.o write-tree.o commit-tree.o read-tree.o \
               cat-file.o show-diff.o 
 PROGS  := $(subst .o,,$(OBJS))
-PROGS += zpipe
+PROGS += zpipe helper
 
 ifeq ($(OS),Windows_NT)
     CFLAGS += -D BGIT_WINDOWS
@@ -77,6 +77,9 @@ show-diff    : show-diff.o $(RCOBJ)
 
 zpipe        : zpipe.o
 	$(CC) $(CFLAGS) -o $@ $@.o $(LDLIBS)
+
+helper    : helper.o $(RCOBJ)
+	$(CC) $(CFLAGS) -o $@ $@.o $(RCOBJ) $(LDLIBS)
 
 $(OBJS) : cache.h
 
