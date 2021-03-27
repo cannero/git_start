@@ -10,3 +10,5 @@ write-tree
 *.exe
 target
 debug
+obj
+bin
