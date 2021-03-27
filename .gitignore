@@ -8,3 +8,5 @@ show-diff
 update-cache
 write-tree
 *.exe
+target
+debug
