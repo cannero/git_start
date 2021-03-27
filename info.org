@@ -1,0 +1,65 @@
+* update cache
+- lock cache
+- loop over files, add to cache
+- write cache
+- rename lock file
+** add file to cache
+- filestat
+- index_fd
+- add_cache_entry
+** index_fd
+- create stream of metadata + file
+- sha1 of stream
+- write_sha1_buffer
+** add_cache_entry
+- get pos for cache
+- allocate cache if needed
+- move cache if required
+- add cache entry to cache
+** cache_name_pos
+- binary search for next pos
+- if already present return -pos-1
+** write_cache
+- create new sha1
+- add cache entries to sha1
+- write cache header to index
+- write cache entries to index
+* read cache
+** write_sha1_file
+- compress buffer input
+- write sha1 buffer
+- prints sha1 as hex
+** write_sha1_buffer
+- get filename, write file
+** sha1_file_name
+- create base name once, directory + /../
+- fill sha1 2 directory + 38 filename
+** read_cache
+- active cache holds the cache_entries
+- map index file to cache_header, get number of entries
+- allocate space for the cache
+- move cache entries from map to active_cache
+** read_sha1_file
+- read file corresponding to sha1
+- return type, size and buffer
+* write tree
+- read cache
+- add name, mode, sha1 to buffer for each entry
+- build buffer of sha1 plus parents sha1s
+- print sha1
+* commit tree
+- check for initial sha1 or sha1 plus parent sha
+- add user info and comment
+- write sha1 file
+* cat
+- read sh1 file, write to temporary file
+* read tree
+- get sha1 file, return if not type tree
+
+* DONE
+** rust zlib
+https://stackoverflow.com/questions/24633784/is-there-a-gzip-library-available-for-rust
+** f# zlib
+https://docs.microsoft.com/en-us/dotnet/api/system.io.compression.deflatestream?view=net-5.0
+uses internally zlib -> only raw deflate
+or https://github.com/icsharpcode/SharpZipLib, also supports zlib
